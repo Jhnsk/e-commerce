@@ -22,7 +22,8 @@
                 'password' => 'required'
             ]);
         
-            try {
+            try 
+            {
              $user =   $this->userServices->validateUser(
                     $request->email,
                     $request->password
