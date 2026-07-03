@@ -34,13 +34,9 @@
         <h2>Categorias</h2>
 
         <ul>
-            <li>Vestidos</li>
-            <li>Blusas</li>
-            <li>Saias</li>
-            <li>Calças</li>
-            <li>Conjuntos</li>
-            <li>Moda Praia</li>
-            <li>Acessórios</li>
+            @foreach($categories as $category)
+                <li>{{ $category->name }}</li>
+            @endforeach
         </ul>
     </aside>
 

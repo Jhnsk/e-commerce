@@ -2,6 +2,7 @@
 
     namespace App\Services;
 
+    use App\Models\User;
     use App\Repositories\UserRepository;
     use Illuminate\Support\Facades\Hash;
 
@@ -9,7 +10,7 @@
     {
         public function __construct(private UserRepository $userRepository){}
 
-        public function createUser(string $name, string $email, string $password)
+        public function createUser(string $name, string $email, string $password): User
         {
             $passwordHash = Hash::make($password);
 
@@ -24,7 +25,7 @@
             ]);
         }
 
-        public function validateUser(string $email, string $password)
+        public function validateUser(string $email, string $password): User
         {
             $user = $this->userRepository->findByEmail($email);
 

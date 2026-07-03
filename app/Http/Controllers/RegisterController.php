@@ -26,7 +26,7 @@ class RegisterController extends Controller
             'password' => 'required|min:8|confirmed'
         ]);
 
-       $user = $this->userServices->createUser(
+        $user = $this->userServices->createUser(
             $request->name,
             $request->email,
             $request->password
@@ -37,5 +37,6 @@ class RegisterController extends Controller
         $request->session()->regenerate();
 
         return redirect()->route('dashboard');
+
     }
 }

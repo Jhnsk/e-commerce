@@ -24,6 +24,7 @@
         
             try 
             {
+
              $user =   $this->userServices->validateUser(
                     $request->email,
                     $request->password
@@ -40,6 +41,7 @@
                     'login' => $e->getMessage()
                 ]);
             }
+            
         }
         
     }

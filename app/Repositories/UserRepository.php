@@ -6,7 +6,7 @@
 
     class UserRepository
     {
-        public function create(array $data)
+        public function create(array $data): User
         {
             return User::create($data);
         }
@@ -17,7 +17,7 @@
             ->exists();
         }
         
-        public function findByEmail(string $email)
+        public function findByEmail(string $email): ?User
         {
             return User::where('email', $email)->first();
         }
