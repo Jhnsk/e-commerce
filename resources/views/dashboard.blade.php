@@ -35,7 +35,9 @@
 
         <ul>
             @foreach($categories as $category)
-                <li>{{ $category->name }}</li>
+                <a href="{{ route('products.category', $category->id) }}">
+                    <li>{{ $category->name }}</li>
+                </a>
             @endforeach
         </ul>
     </aside>

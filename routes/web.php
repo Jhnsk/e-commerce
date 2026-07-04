@@ -29,3 +29,5 @@ Route::post('/login', [LoginController::class, 'checkUser'])->name('checkUser');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')
 ->middleware('auth');
 
+
+
