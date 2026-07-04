@@ -10,4 +10,9 @@
         {
             return Product::all();
         }
+
+        public function getProductsByCategories(int $categoryId)
+        {
+            return Product::where('category_id', $categoryId)->get();
+        }
     }

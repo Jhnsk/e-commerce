@@ -29,5 +29,5 @@ Route::post('/login', [LoginController::class, 'checkUser'])->name('checkUser');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')
 ->middleware('auth');
 
-
+Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name('products.category');
 

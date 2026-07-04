@@ -19,4 +19,12 @@ class DashboardController extends Controller
         return view('dashboard', compact('products','categories'));
     }
 
+    public function byCategories(int $id)
+    {
+        $products = $this->productService->getProductsByCategories($id);
+        $categories = $this->categoryService->getAllCategories();
+
+        return view('dashboard', compact('products','categories'));
+    }
+
 }

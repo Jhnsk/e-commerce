@@ -13,4 +13,9 @@
             return $this->productRepository->getAll();
         }
 
+        public function getProductsByCategories(int $categoryId)
+        {
+            return $this->productRepository->getProductsByCategories($categoryId);
+        }
+
     }
