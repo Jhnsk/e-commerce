@@ -18,4 +18,9 @@
             return $this->productRepository->getProductsByCategories($categoryId);
         }
 
+        public function searchProduts(string $search)
+        {
+            return $this->productRepository->searchProduts($search);
+        }
+
     }

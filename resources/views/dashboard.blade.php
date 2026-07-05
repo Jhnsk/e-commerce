@@ -15,7 +15,10 @@
     </div>
 
     <div class="search-box">
-        <input type="text" placeholder="Buscar produtos...">
+        <form action="{{route('products.search')}}" method="get">
+            <input type="text" name="search" placeholder="Buscar produtos...">
+            <button type="submit">Buscar</button>
+        </form>
     </div>
 
     <div class="user-area">
@@ -68,7 +71,7 @@
                 </div>
 
                 <div class="stock">
-                    Estoque: {{$product->quantity}} unidades
+                    Estoque: {{$product->stock}} unidades
                 </div>
 
                 <div class="options">

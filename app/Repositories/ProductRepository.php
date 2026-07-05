@@ -15,4 +15,9 @@
         {
             return Product::where('category_id', $categoryId)->get();
         }
+
+        public function searchProduts(string $search)
+        {
+            return Product::where('name', 'like', "%{$search}%")->get();
+        }
     }

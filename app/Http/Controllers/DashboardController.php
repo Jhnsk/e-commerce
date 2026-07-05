@@ -27,4 +27,14 @@ class DashboardController extends Controller
         return view('dashboard', compact('products','categories'));
     }
 
+    public function search(Request $request)
+    {
+        $search = trim($request->search);
+
+        $products = $this->productService->searchProduts($search);
+        $categories = $this->categoryService->getAllCategories();
+
+        return view('dashboard', compact('products','categories'));
+    }
+
 }

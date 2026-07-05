@@ -31,3 +31,4 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name('products.category');
 
+Route::get('/search', [DashboardController::class, 'search'])->name('products.search');
