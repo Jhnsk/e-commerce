@@ -123,6 +123,7 @@
         transform:translateY(-2px);
         box-shadow:0 8px 20px rgba(124,58,237,.25);
     }
+   
     
     .user-area button{
     border:none;
@@ -572,6 +573,11 @@
     
     .search-box input{
         width:100%;
+    }
+    .search-box form{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
     }
     
     .user-area{

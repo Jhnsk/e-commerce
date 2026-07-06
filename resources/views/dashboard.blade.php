@@ -53,8 +53,9 @@
 
            {{-- Card de produtos --}}
            
-            @foreach ($products as $product)
-                <div class="product-card">
+    @foreach ($products as $product)
+
+        <div class="product-card">
 
                 <div class="product-image">
                     IMG
@@ -74,27 +75,32 @@
                     Estoque: {{$product->stock}} unidades
                 </div>
 
+            <form action="{{ route('product.add')}}" method="POST">
+                 @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
                 <div class="options">
-                    <select>
-                        <option>P</option>
-                        <option>M</option>
-                        <option>G</option>
-                        <option>GG</option>
+                    <select name="size">
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                        <option value="G">G</option>
+                        <option value="GG">GG</option>
                     </select>
 
-                    <select>
-                        <option>Rosa</option>
-                        <option>Branco</option>
-                        <option>Preto</option>
+                    <select name="color">
+                        <option value="Rosa">Rosa</option>
+                        <option value="Branco">Branco</option>
+                        <option value="Preto">Preto</option>
                     </select>
                 </div>
 
                 <button class="cart-btn">
                     Adicionar ao Carrinho
                 </button>
+            </form>
 
-            </div>
-            @endforeach
+        </div>
+    @endforeach
             
         </div>
 
@@ -103,20 +109,13 @@
     <aside class="cart-area">
 
         <h2>Carrinho</h2>
-
+    @foreach ($cart as $item)
         <div class="cart-item">
-            Vestido Floral
-            <span>R$149,90</span>
+            {{$item['name']}}
+            <span>R${{$item['price']}}</span>
         </div>
-
-        <div class="cart-item">
-            Blusa Angel Rose
-            <span>R$89,90</span>
-        </div>
-
-        <div class="cart-total">
-            Total: R$239,80
-        </div>
+    @endforeach
+        
 
         <button class="checkout-btn">
             Finalizar Compra

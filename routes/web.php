@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,5 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name('products.category');
 
 Route::get('/search', [DashboardController::class, 'search'])->name('products.search');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('product.add');

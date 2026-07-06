@@ -16,7 +16,9 @@ class DashboardController extends Controller
         $products = $this->productService->getAllProducts();
         $categories = $this->categoryService->getAllCategories();
 
-        return view('dashboard', compact('products','categories'));
+        $cart = session()->get('cart', []);
+
+        return view('dashboard', compact('products','categories','cart'));
     }
 
     public function byCategories(int $id)
@@ -24,7 +26,9 @@ class DashboardController extends Controller
         $products = $this->productService->getProductsByCategories($id);
         $categories = $this->categoryService->getAllCategories();
 
-        return view('dashboard', compact('products','categories'));
+        $cart = session()->get('cart', []);
+
+        return view('dashboard', compact('products','categories','cart'));
     }
 
     public function search(Request $request)
@@ -34,7 +38,9 @@ class DashboardController extends Controller
         $products = $this->productService->searchProduts($search);
         $categories = $this->categoryService->getAllCategories();
 
-        return view('dashboard', compact('products','categories'));
+        $cart = session()->get('cart', []);
+
+        return view('dashboard', compact('products','categories','cart'));
     }
 
 }
