@@ -35,3 +35,6 @@ Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name
 Route::get('/search', [DashboardController::class, 'search'])->name('products.search');
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('product.add');
+
+Route::post('/cart/increase/{id}', [CartController::class, 'increase']);
+Route::post('/cart/decrease/{id}', [CartController::class, 'decrease']);

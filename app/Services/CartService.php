@@ -14,7 +14,7 @@
 
             $cart = session()->get('cart', []);
 
-            $cart[] = [
+            $cart[$product->id] = [
 
                 'product_id' => $product->id,
                 'name' => $product->name,

@@ -19,4 +19,48 @@ class CartController extends Controller
 
         return back();
     }
+
+    public function increase($id)
+    {
+        $cart = session('cart', []);
+        
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        }
+
+        session(['cart' => $cart]);
+
+        return response()->json([
+            'quantity' => $cart[$id]['quantity'],
+            'price' => $cart[$id]['price']
+        ]);
+    } 
+
+    public function decrease($id)
+    {
+        $cart = session('cart', []);
+
+        if (isset($cart[$id])) {
+
+            $cart[$id]['quantity']--;
+
+            if ($cart[$id]['quantity'] <= 0) {
+                unset($cart[$id]);
+
+                session(['cart' => $cart]);
+
+                return response()->json([
+                    'removed' => true
+                ]);
+            }
+        }
+
+        session(['cart' => $cart]);
+
+        return response()->json([
+            'removed' => false,
+            'quantity' => $cart[$id]['quantity'],
+            'price' => $cart[$id]['price']
+        ]);
+    }
 }

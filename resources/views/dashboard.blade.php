@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AngelVip Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
@@ -109,35 +110,54 @@
 
         <aside class="cart-area">
 
-            <h2>Carrinho</h2>
-            @foreach ($cart as $item)
-                <div class="cart-item">
-                    {{ $item['name'] }} 
-                    <span>R${{ $item['price'] }}</span>
-                    
-                    <div class="controllers">
-                        <div class="minusController">
-                            <button>-</button>
-                        </div>
-                        <div class="quantityController">
-                            <span>{{$item['quantity']}}</span>
-                        </div>
-                        <div class="maxisController">
-                            <button>+</button>
-                        </div>
-                   
+            <div class="cart-header">
+                <h2>Carrinho</h2>
+            </div>
+
+            @foreach ($cart as $id => $item)
+                <div id="cart-item-{{ $id }}" class="cart-item">
+
+                    <div class="cart-item-info">
+                        <h4>{{ $item['name'] }}</h4>
+
+                        <span id="cart-price-{{$id}}" class="cart-price">
+                            R$ {{ $item['price']}}
+                        </span>
                     </div>
-                    
+
+                    <div class="cart-controls">
+
+                        <button class="decrease-btn" data-id="{{ $id }}">
+                            -
+                        </button>
+
+                        <span id="qty-{{ $id }}">
+                            {{ $item['quantity'] }}
+                        </span>
+
+                        <button class="increase-btn" data-id="{{ $id }}">
+                            +
+                        </button>
+
+                    </div>
+
                 </div>
             @endforeach
 
+            <div class="cart-footer">
 
-            <button class="checkout-btn">
-                Finalizar Compra
-            </button>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <strong>R$ 0,00</strong>
+                </div>
+
+                <button class="checkout-btn">
+                    Finalizar Compra
+                </button>
+
+            </div>
 
         </aside>
-
     </div>
     <div class="overlay"></div>
     <script src="{{ asset('js/script.js') }}"></script>

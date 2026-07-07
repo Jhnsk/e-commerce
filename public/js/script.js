@@ -39,3 +39,87 @@ if (overlay) {
         overlay.classList.remove('active');
     });
 }
+
+// ===============================
+// AJAX DE AUMENTO DE QUANTIDADE
+//================================
+
+document.querySelectorAll('.increase-btn')
+.forEach(button => {
+
+    button.addEventListener('click', async () => {
+
+        const id = button.dataset.id;
+
+        const response = await fetch(
+            `/cart/increase/${id}`,
+            {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN':
+                    document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        document.querySelector(
+            `#qty-${id}`
+        ).textContent = data.quantity;
+
+        let inTotal = data.price * data.quantity;
+
+        document.querySelector(`#cart-price-${id}`).textContent = "R$ " + inTotal.toFixed(2) ;
+
+    });
+
+});
+
+//==================================
+// AJAX DE DEMINUIÇÃO DE QUANTIDADE
+//==================================
+
+document
+.querySelectorAll('.decrease-btn')
+.forEach(button => {
+
+    button.addEventListener('click', async () => {
+
+        const id = button.dataset.id;
+
+        const response = await fetch(
+            `/cart/decrease/${id}`,
+            {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN':
+                    document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if(data.removed)
+        {
+            document.querySelector(`#cart-item-${id}`).remove();
+                
+        }
+        else
+        {
+            let lessTotal = data.price * data.quantity;
+
+            document
+                .querySelector(`#qty-${id}`)
+                .textContent = data.quantity;
+                document.querySelector(`#cart-price-${id}`).textContent = "R$ " + lessTotal.toFixed(2) ;    
+        }
+
+    });
+
+});
