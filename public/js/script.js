@@ -66,13 +66,17 @@ document.querySelectorAll('.increase-btn')
 
         const data = await response.json();
 
+        document.querySelector('.cart-total-value').innerHTML =
+        `R$ ${data.total.toFixed(2).replace('.', ',')}`;
+
         document.querySelector(
             `#qty-${id}`
         ).textContent = data.quantity;
 
         let inTotal = data.price * data.quantity;
 
-        document.querySelector(`#cart-price-${id}`).textContent = "R$ " + inTotal.toFixed(2) ;
+        document.querySelector(`#cart-price-${id}`).textContent =
+        "R$ " + inTotal.toFixed(2).replace('.', ',');
 
     });
 
@@ -117,8 +121,12 @@ document
             document
                 .querySelector(`#qty-${id}`)
                 .textContent = data.quantity;
-                document.querySelector(`#cart-price-${id}`).textContent = "R$ " + lessTotal.toFixed(2) ;    
+                document.querySelector(`#cart-price-${id}`).textContent =
+                "R$ " + lessTotal.toFixed(2).replace('.', ',');    
         }
+
+        document.querySelector('.cart-total-value').innerHTML =
+        `R$ ${data.total.toFixed(2).replace('.', ',')}`;
 
     });
 

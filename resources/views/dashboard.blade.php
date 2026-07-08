@@ -121,7 +121,7 @@
                         <h4>{{ $item['name'] }}</h4>
 
                         <span id="cart-price-{{$id}}" class="cart-price">
-                            R$ {{ $item['price']}}
+                            R$ {{ number_format($item['price'] * $item['quantity'], 2, ',', '.') }}
                         </span>
                     </div>
 
@@ -148,7 +148,7 @@
 
                 <div class="cart-total">
                     <span>Total:</span>
-                    <strong>R$ 0,00</strong>
+                    <strong class="cart-total-value">R$ {{ number_format($total, 2, ',', '.') }}</strong>
                 </div>
 
                 <button class="checkout-btn">

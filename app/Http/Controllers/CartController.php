@@ -23,16 +23,27 @@ class CartController extends Controller
     public function increase($id)
     {
         $cart = session('cart', []);
-        
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        }
 
+        if (!isset($cart[$id])) {
+            return response()->json([
+                'error' => 'Produto não encontrado no carrinho'
+            ], 404);
+        }
+        
+            $cart[$id]['quantity']++;
+        
         session(['cart' => $cart]);
+
+        $total = 0;
+
+        foreach($cart as $cartItem){
+            $total += $cartItem['price'] * $cartItem['quantity'];
+        }
 
         return response()->json([
             'quantity' => $cart[$id]['quantity'],
-            'price' => $cart[$id]['price']
+            'price' => $cart[$id]['price'],
+            'total' => $total
         ]);
     } 
 
@@ -40,27 +51,47 @@ class CartController extends Controller
     {
         $cart = session('cart', []);
 
-        if (isset($cart[$id])) {
+        
+        if (!isset($cart[$id])) {
+            return response()->json([
+                'error' => 'Produto não encontrado no carrinho'
+            ], 404);
+        }
+
 
             $cart[$id]['quantity']--;
 
             if ($cart[$id]['quantity'] <= 0) {
                 unset($cart[$id]);
 
+                $total = 0;
+
+            foreach($cart as $cartItem){
+                $total += $cartItem['price'] * $cartItem['quantity'];
+            }
+
                 session(['cart' => $cart]);
 
                 return response()->json([
-                    'removed' => true
+                    'removed' => true,
+                    'total' => $total
                 ]);
             }
-        }
+        
 
         session(['cart' => $cart]);
+
+        $total = 0;
+
+        foreach($cart as $cartItem){
+            $total += $cartItem['price'] * $cartItem['quantity'];
+        }
 
         return response()->json([
             'removed' => false,
             'quantity' => $cart[$id]['quantity'],
-            'price' => $cart[$id]['price']
+            'price' => $cart[$id]['price'],
+            'total' => $total
         ]);
     }
 }
