@@ -35,9 +35,74 @@
 
         } 
 
-        public function increase(int $id)
+        public function getCartIncreased(int $id): array
         {
+            $cart = session('cart', []);
+
+            if (!isset($cart[$id])) {
+                return [
+                    'error' => true,
+                    'message' => 'Produto não encontrado no carrinho'
+                ];
+            }
+
+            $cart[$id]['quantity']++;
+
+            session(['cart' => $cart]);
+
+            return $cart;
+        }
+
+        public function getCartDecreased(int $id)
+        {
+            $cart = session('cart', []);
+
+        
+            if (!isset($cart[$id])) {
+                return [
+                    'error' => 'true',
+                    'message' => 'Produto não encontrado no carrinho'
+
+                ];
+            }
+    
+    
+                $cart[$id]['quantity']--;
+    
+                if ($cart[$id]['quantity'] <= 0) {
+                    unset($cart[$id]);
+    
+                    $total = $this->getTotal($cart);
+    
+                    session(['cart' => $cart]);
+    
+                    return [
+                        'removed' => true,
+                        'total' => $total
+                    ];
+                }
             
+    
+            session(['cart' => $cart]);
+            
+            return [
+                'removed' => false,
+                'quantity' => $cart[$id]['quantity'],
+                'price' => $cart[$id]['price'],
+                'total' => $this->getTotal($cart)
+            ];
+        }
+
+        public function getTotal($cart)
+        {
+            $total = 0;
+
+            foreach($cart as $cartItem){
+                $total += $cartItem['price'] * $cartItem['quantity'];
+            }
+
+            return $total;
+
         }
         
         public function calcularTotal()

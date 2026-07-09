@@ -21,77 +21,34 @@ class CartController extends Controller
     }
 
     public function increase($id)
-    {
-        $cart = session('cart', []);
+{
+    $cart = $this->cartService->getCartIncreased($id);
 
-        if (!isset($cart[$id])) {
-            return response()->json([
-                'error' => 'Produto não encontrado no carrinho'
-            ], 404);
-        }
-        
-            $cart[$id]['quantity']++;
-        
-        session(['cart' => $cart]);
-
-        $total = 0;
-
-        foreach($cart as $cartItem){
-            $total += $cartItem['price'] * $cartItem['quantity'];
-        }
-
+    if (isset($cart['error'])) {
         return response()->json([
-            'quantity' => $cart[$id]['quantity'],
-            'price' => $cart[$id]['price'],
-            'total' => $total
-        ]);
-    } 
+            'error' => $cart['message']
+        ], 404);
+    }
+
+    $total = $this->cartService->getTotal($cart);
+
+    return response()->json([
+        'quantity' => $cart[$id]['quantity'],
+        'price' => $cart[$id]['price'],
+        'total' => $total
+    ]);
+}
 
     public function decrease($id)
-    {
-        $cart = session('cart', []);
+{
+    $result = $this->cartService->getCartDecreased($id);
 
-        
-        if (!isset($cart[$id])) {
-            return response()->json([
-                'error' => 'Produto não encontrado no carrinho'
-            ], 404);
-        }
-
-
-            $cart[$id]['quantity']--;
-
-            if ($cart[$id]['quantity'] <= 0) {
-                unset($cart[$id]);
-
-                $total = 0;
-
-            foreach($cart as $cartItem){
-                $total += $cartItem['price'] * $cartItem['quantity'];
-            }
-
-                session(['cart' => $cart]);
-
-                return response()->json([
-                    'removed' => true,
-                    'total' => $total
-                ]);
-            }
-        
-
-        session(['cart' => $cart]);
-
-        $total = 0;
-
-        foreach($cart as $cartItem){
-            $total += $cartItem['price'] * $cartItem['quantity'];
-        }
-
+    if (isset($result['error'])) {
         return response()->json([
-            'removed' => false,
-            'quantity' => $cart[$id]['quantity'],
-            'price' => $cart[$id]['price'],
-            'total' => $total
-        ]);
+            'error' => $result['message']
+        ], 404);
     }
+
+    return response()->json($result);
+}
 }
