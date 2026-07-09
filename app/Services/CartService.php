@@ -34,6 +34,11 @@
             }
 
         } 
+
+        public function increase(int $id)
+        {
+            
+        }
         
         public function calcularTotal()
         {
