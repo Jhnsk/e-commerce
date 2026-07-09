@@ -10,8 +10,13 @@ use App\Services\CartService;
 class DashboardController extends Controller
 {
 
-    public function __construct(private ProductService $productService, private CategoryService $categoryService,
-    private CartService $cartService){}
+    public function __construct(
+
+        private ProductService $productService,
+        private CategoryService $categoryService,
+        private CartService $cartService
+        
+        ){}
 
     public function dashboard()
     {

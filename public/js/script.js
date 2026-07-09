@@ -67,7 +67,7 @@ document.querySelectorAll('.increase-btn')
         const data = await response.json();
 
         document.querySelector('.cart-total-value').innerHTML =
-        `R$ ${data.total.toFixed(2).replace('.', ',')}`;
+        `R$ ${formatMoney(data.total)}`;
 
         document.querySelector(
             `#qty-${id}`
@@ -76,7 +76,7 @@ document.querySelectorAll('.increase-btn')
         let inTotal = data.price * data.quantity;
 
         document.querySelector(`#cart-price-${id}`).textContent =
-        "R$ " + inTotal.toFixed(2).replace('.', ',');
+        `R$ ${formatMoney(inTotal)}`; 
 
     });
 
@@ -118,16 +118,86 @@ document
         {
             let lessTotal = data.price * data.quantity;
 
-            document
-                .querySelector(`#qty-${id}`)
+            document.querySelector(`#qty-${id}`)
                 .textContent = data.quantity;
-                document.querySelector(`#cart-price-${id}`).textContent =
-                "R$ " + lessTotal.toFixed(2).replace('.', ',');    
+
+            document.querySelector(`#cart-price-${id}`).textContent =
+            `R$ ${formatMoney(lessTotal)}`;   
         }
 
-        document.querySelector('.cart-total-value').innerHTML =
-        `R$ ${data.total.toFixed(2).replace('.', ',')}`;
+            document.querySelector('.cart-total-value').innerHTML =
+            `R$ ${formatMoney(data.total)}`;
 
     });
 
 });
+
+function formatMoney(value)
+{
+    return value.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+//==================================================
+// APENAS TESTE ESSA PARTE DE BAIXO
+
+const openBtn =
+document.querySelector('#openCheckout');
+
+const closeBtn =
+document.querySelector('#closeModal');
+
+const modal =
+document.querySelector('#checkoutModal');
+
+const backdrop =
+document.querySelector('#checkoutBackdrop');
+
+openBtn.addEventListener('click', () => {
+
+    modal.classList.add('active');
+    backdrop.classList.add('active');
+
+});
+
+function closeModal()
+{
+    modal.classList.remove('active');
+    backdrop.classList.remove('active');
+}
+
+closeBtn.addEventListener(
+    'click',
+    closeModal
+);
+
+backdrop.addEventListener(
+    'click',
+    closeModal
+);
+
+const deliveryType =
+document.querySelector('#deliveryType');
+
+const deliveryFields =
+document.querySelector('#deliveryFields');
+
+deliveryType.addEventListener(
+    'change',
+    () => {
+
+        if(deliveryType.value === 'delivery')
+        {
+            deliveryFields.style.display =
+            'block';
+        }
+        else
+        {
+            deliveryFields.style.display =
+            'none';
+        }
+
+    }
+);
