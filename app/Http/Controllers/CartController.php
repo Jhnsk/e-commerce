@@ -21,34 +21,34 @@ class CartController extends Controller
     }
 
     public function increase($id)
-{
-    $cart = $this->cartService->getCartIncreased($id);
+    {
+        $cart = $this->cartService->getCartIncreased($id);
 
-    if (isset($cart['error'])) {
+        if (isset($cart['error'])) {
+            return response()->json([
+                'error' => $cart['message']
+            ], 404);
+        }
+
+        $total = $this->cartService->getTotal($cart);
+
         return response()->json([
-            'error' => $cart['message']
-        ], 404);
+            'quantity' => $cart[$id]['quantity'],
+            'price' => $cart[$id]['price'],
+            'total' => $total
+        ]);
     }
-
-    $total = $this->cartService->getTotal($cart);
-
-    return response()->json([
-        'quantity' => $cart[$id]['quantity'],
-        'price' => $cart[$id]['price'],
-        'total' => $total
-    ]);
-}
 
     public function decrease($id)
-{
-    $result = $this->cartService->getCartDecreased($id);
+    {
+        $result = $this->cartService->getCartDecreased($id);
 
-    if (isset($result['error'])) {
-        return response()->json([
-            'error' => $result['message']
-        ], 404);
+        if (isset($result['error'])) {
+            return response()->json([
+                'error' => $result['message']
+            ], 404);
+        }
+
+        return response()->json($result);
     }
-
-    return response()->json($result);
-}
 }

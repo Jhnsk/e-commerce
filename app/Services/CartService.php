@@ -72,13 +72,13 @@
                 if ($cart[$id]['quantity'] <= 0) {
                     unset($cart[$id]);
     
-                    $total = $this->getTotal($cart);
+                     
     
                     session(['cart' => $cart]);
     
                     return [
                         'removed' => true,
-                        'total' => $total
+                        'total' => $this->getTotal($cart)
                     ];
                 }
             
@@ -105,16 +105,4 @@
 
         }
         
-        public function calcularTotal()
-        {
-            $cart = session()->get('cart', []);
-
-            $total = 0;
-
-            foreach($cart as $item){
-                $total += $item['price'] * $item['quantity'];
-            }
-
-            return $total;
-        }
     }

@@ -14,7 +14,7 @@
            </button>
        </div>
    
-       <form action="" method="POST">
+       <form action="{{route('checkout')}}" method="POST">
    
            @csrf
    
@@ -37,7 +37,7 @@
            </div>
    
            <div class="form-group">
-               <label>Pedido</label>
+               <label>Tipo de Entrega</label>
    
                <select id="deliveryType" name="delivery_type">
                    <option value="">Selecione</option>
@@ -92,7 +92,7 @@
    
                <div>
                    <span>Subtotal</span>
-                   <strong>R$ 120,00</strong>
+                   <strong id="cart-total-subValue">R$ </strong>
                </div>
    
                <div>
@@ -102,7 +102,7 @@
    
                <div class="summary-total">
                    <span>Total</span>
-                   <strong>R$ 125,00</strong>
+                   <strong id="cart-total-value">R$ </strong>
                </div>
    
            </div>

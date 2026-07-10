@@ -128,9 +128,12 @@ document
             document.querySelector('.cart-total-value').innerHTML =
             `R$ ${formatMoney(data.total)}`;
 
+            
     });
 
 });
+
+
 
 function formatMoney(value)
 {
@@ -156,6 +159,14 @@ const backdrop =
 document.querySelector('#checkoutBackdrop');
 
 openBtn.addEventListener('click', () => {
+
+    const totalAtual =
+        document.querySelector('.cart-total-value').textContent;
+
+        document.querySelector('#cart-total-subValue').textContent =
+        totalAtual;
+        document.querySelector('#cart-total-value').textContent =
+        totalAtual ;
 
     modal.classList.add('active');
     backdrop.classList.add('active');

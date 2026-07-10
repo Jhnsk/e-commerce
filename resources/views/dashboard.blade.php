@@ -114,9 +114,11 @@
                 <h2>Carrinho</h2>
             </div>
 
+            
+
             @foreach ($cart as $id => $item)
                 <div id="cart-item-{{ $id }}" class="cart-item">
-
+                    
                     <div class="cart-item-info">
                         <h4>{{ $item['name'] }}</h4>
 
@@ -148,7 +150,7 @@
 
                 <div class="cart-total">
                     <span>Total:</span>
-                    <strong class="cart-total-value">R$ {{ number_format($total, 2, ',', '.') }}</strong>
+                    <strong class="cart-total-value" >R$ {{ number_format($total, 2, ',', '.') }}</strong>
                 </div>
 
                 <button class="checkout-btn" id="openCheckout">

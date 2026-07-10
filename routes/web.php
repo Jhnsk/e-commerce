@@ -38,3 +38,5 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('product.add');
 
 Route::post('/cart/increase/{id}', [CartController::class, 'increase']);
 Route::post('/cart/decrease/{id}', [CartController::class, 'decrease']);
+
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth.session');
