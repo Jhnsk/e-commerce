@@ -10,7 +10,11 @@
 </head>
 
 <body>
-
+<pre>
+    <pre>
+        {{ print_r($cart, true) }}
+    </pre>
+</pre>
     <header class="header">
 
         <div class="logo">

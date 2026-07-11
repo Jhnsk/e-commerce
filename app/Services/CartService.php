@@ -29,10 +29,8 @@
                     'quantity' => 1
                 ];
  
-                session()->put('cart', $cart);
-
             }
-
+                    session()->put('cart', $cart);
         } 
 
         public function getCartIncreased(int $id): array

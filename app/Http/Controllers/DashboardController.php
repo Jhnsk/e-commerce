@@ -33,9 +33,9 @@ class DashboardController extends Controller
     {
         $products = $this->productService->getProductsByCategories($id);
         $categories = $this->categoryService->getAllCategories();
-        $total = $this->cartService->calcularTotal();
-
+        
         $cart = session()->get('cart', []);
+        $total = $this->cartService->getTotal($cart);
 
         return view('dashboard', compact('products','categories','cart','total'));
     }
@@ -46,9 +46,9 @@ class DashboardController extends Controller
 
         $products = $this->productService->searchProduts($search);
         $categories = $this->categoryService->getAllCategories();
-        $total = $this->cartService->calcularTotal();
-
+        
         $cart = session()->get('cart', []);
+        $total = $this->cartService->getTotal($cart);
 
         return view('dashboard', compact('products','categories','cart','total'));
     }
