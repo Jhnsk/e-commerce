@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Services\CartService;
 
@@ -10,7 +11,8 @@ class CheckoutService
     public function __construct(
 
         private OrderRepository $orderRepository,
-        private CartService $cartService
+        private CartService $cartService,
+        private OrderItemRepository $orderItemRepository
 
     ) {
     }
@@ -23,6 +25,7 @@ class CheckoutService
         $total = $this->cartService->getTotal($cart);
 
         $order = [
+
             'name' => $data['name'],
             'phone' => $data['phone'],
             'delivery_type' => $data['delivery_type'],
@@ -36,10 +39,25 @@ class CheckoutService
 
         $orderCreated = $this->orderRepository->create($order);
 
+        foreach ($cart as $item) {
+
+            $this->orderItemRepository->create([
+
+                'order_id' => $orderCreated->id,
+                'product_id' => $item['product_id'],
+                'product_name' => $item['name'],
+                'price' => $item['price'],
+                'quantity' => $item['quantity'],
+                'subtotal' => $item['price'] * $item['quantity'],
+                'size' => $item['size'],
+                'color' => $item['color']
+
+            ]);
+        }
+
         session()->forget('cart');
 
         return $orderCreated;
 
-       
     }
 }

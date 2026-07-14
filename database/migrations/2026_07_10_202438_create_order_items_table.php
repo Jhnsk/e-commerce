@@ -23,6 +23,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
             $table->decimal('subtotal', 10, 2);
+            $table->string('size');
+            $table->string('color');
             $table->timestamps();
         });
     }

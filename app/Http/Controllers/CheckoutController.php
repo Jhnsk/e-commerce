@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
-use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Services\CheckoutService;
 
 class CheckoutController extends Controller
@@ -23,6 +21,7 @@ class CheckoutController extends Controller
             'reference',
             'payment_method',
             'note'
+
         ]));
 
         return redirect()->back();

@@ -71,7 +71,7 @@
                 
                     <div class="product-image">
                 
-                        IMG
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ5yVdeiYLypHVyOiBMXSp3qV2kBQObOc3JgA-q3qgPw&s=10" alt="">
                 
                     </div>
                 
@@ -138,7 +138,7 @@
 
             @foreach ($cart as $id => $item)
                 <div id="cart-item-{{ $id }}" class="cart-item">
-                    
+                    {{-- @dd($cart) --}}
                     <div class="cart-item-info">
                         <h4>{{ $item['name'] }}</h4>
 
