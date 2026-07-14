@@ -10,11 +10,7 @@
 </head>
 
 <body>
-<pre>
-    <pre>
-        {{ print_r($cart, true) }}
-    </pre>
-</pre>
+
     <header class="header">
 
         <div class="logo">
@@ -61,53 +57,73 @@
                 {{-- Card de produtos --}}
 
                 @foreach ($products as $product)
-                    <div class="product-card">
 
-                        <div class="product-image">
-                            IMG
-                        </div>
+                <div
+                    class="product-card"
+                
+                    data-id="{{ $product->id }}"
+                    data-name="{{ $product->name }}"
+                    data-price="{{ $product->price }}"
+                    data-description="{{ $product->description }}"
+                    data-category="{{ $product->category->name }}"
 
-                        <h3>{{ $product->name }}</h3>
-
-                        <p class="description">
-                            {{ $product->description }}
-                        </p>
-
-                        <div class="price">
-                            R$ {{ $product->price }}
-                        </div>
-
-                        <div class="stock">
-                            Estoque: {{ $product->stock }} unidades
-                        </div>
-
-                        <form action="{{ route('product.add') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                            <div class="options">
-                                <select name="size">
-                                    <option value="P">P</option>
-                                    <option value="M">M</option>
-                                    <option value="G">G</option>
-                                    <option value="GG">GG</option>
-                                </select>
-
-                                <select name="color">
-                                    <option value="Rosa">Rosa</option>
-                                    <option value="Branco">Branco</option>
-                                    <option value="Preto">Preto</option>
-                                </select>
-                            </div>
-
-                            <button class="cart-btn">
-                                Adicionar ao Carrinho
-                            </button>
-                        </form>
-
+                >
+                
+                    <div class="product-image">
+                
+                        IMG
+                
                     </div>
+                
+                    <div class="product-info">
+                
+                        <h3>{{ $product->name }}</h3>
+                
+                        <p class="description">
+                
+                            {{ Str::limit($product->description, 80) }}
+                
+                        </p>
+                
+                        <div class="price">
+                
+                            R$ {{ number_format($product->price, 2, ',', '.') }}
+                
+                        </div>
+                
+                    </div>
+                
+                </div>
+                
                 @endforeach
 
+            </div>
+            <div class="custom-pagination">
+
+                @if ($products->onFirstPage())
+                    <span class="disabled">‹</span>
+                @else
+                    <a href="{{ $products->previousPageUrl() }}">‹</a>
+                @endif
+            
+            
+                @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+            
+                    @if ($page == $products->currentPage())
+                        <span class="active">{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}">{{ $page }}</a>
+                    @endif
+            
+                @endforeach
+            
+            
+                @if ($products->hasMorePages())
+                    <a href="{{ $products->nextPageUrl() }}">›</a>
+                @else
+                    <span class="disabled">›</span>
+                @endif
+            
             </div>
 
         </main>
@@ -168,6 +184,7 @@
     <div class="overlay"></div>
 
     @include('componentes.checkout-modal')
+    @include('componentes.card-modal')
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 

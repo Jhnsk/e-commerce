@@ -1,15 +1,17 @@
 <?php
 
-    namespace App\Services;
+namespace App\Services;
 
-    use App\Repositories\CategoryRepository;
+use App\Repositories\CategoryRepository;
 
-    class CategoryService
+class CategoryService
+{
+    public function __construct(private CategoryRepository $categoryRepository)
     {
-        public function __construct(private CategoryRepository $categoryRepository){}
-
-        public function getAllCategories()
-        {
-            return $this->categoryRepository->getAll();
-        }
     }
+
+    public function getAllCategories()
+    {
+        return $this->categoryRepository->getAll();
+    }
+}

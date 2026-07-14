@@ -1,36 +1,45 @@
 <?php
 
-    namespace App\Services;
+namespace App\Services;
 
-    use App\Repositories\OrderRepositories;
-    use App\Services\CartService;
+use App\Repositories\OrderRepository;
+use App\Services\CartService;
 
-    class CheckoutService 
-    {
-        public function __construct(
+class CheckoutService
+{
+    public function __construct(
 
-            private OrderRepository $orderRepository,
-            private CartService $cartService
+        private OrderRepository $orderRepository,
+        private CartService $cartService
 
-            ){}
-
-        public function process(array $data)
-        {
-
-            $cart = session()->get('cart', []);
-
-            $total = $this->cartService->getTotal($cart);
-
-                $order = [
-                'name' => $data['name'],
-                'phone' => $data['phone'],
-                'delivery_type' => $data['delivery_type'],
-                'address' => $data['address'],
-                'reference' => $data['reference'],
-                'payment_method' => $data['payment_method'],
-                'note' => $data['note'],
-                'total' => $total
-                
-                ];
-        }
+    ) {
     }
+
+    public function process(array $data)
+    {
+
+        $cart = session()->get('cart', []);
+
+        $total = $this->cartService->getTotal($cart);
+
+        $order = [
+            'name' => $data['name'],
+            'phone' => $data['phone'],
+            'delivery_type' => $data['delivery_type'],
+            'address' => $data['address'],
+            'reference' => $data['reference'],
+            'payment_method' => $data['payment_method'],
+            'note' => $data['note'],
+            'total' => $total
+
+        ];
+
+        $orderCreated = $this->orderRepository->create($order);
+
+        session()->forget('cart');
+
+        return $orderCreated;
+
+       
+    }
+}

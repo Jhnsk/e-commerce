@@ -1,23 +1,23 @@
 <?php
 
-    namespace App\Repositories;
+namespace App\Repositories;
 
-    use App\Models\Product;
+use App\Models\Product;
 
-    class ProductRepository
+class ProductRepository
+{
+    public function getAll()
     {
-        public function getAll()
-        {
-            return Product::all();
-        }
-
-        public function getProductsByCategories(int $categoryId)
-        {
-            return Product::where('category_id', $categoryId)->get();
-        }
-
-        public function searchProduts(string $search)
-        {
-            return Product::where('name', 'like', "%{$search}%")->get();
-        }
+        return Product::paginate(8);
     }
+
+    public function getProductsByCategories(int $categoryId)
+    {
+        return Product::where('category_id', $categoryId)->paginate(8);
+    }
+
+    public function searchProduts(string $search)
+    {
+        return Product::where('name', 'like', "%{$search}%")->paginate(8);
+    }
+}

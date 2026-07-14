@@ -15,42 +15,43 @@ class DashboardController extends Controller
         private ProductService $productService,
         private CategoryService $categoryService,
         private CartService $cartService
-        
-        ){}
+
+    ) {
+    }
 
     public function dashboard()
     {
         $products = $this->productService->getAllProducts();
         $categories = $this->categoryService->getAllCategories();
-        
+
         $cart = session()->get('cart', []);
         $total = $this->cartService->getTotal($cart);
 
-        return view('dashboard', compact('products','categories','cart','total'));
+        return view('dashboard', compact('products', 'categories', 'cart', 'total'));
     }
 
     public function byCategories(int $id)
     {
         $products = $this->productService->getProductsByCategories($id);
         $categories = $this->categoryService->getAllCategories();
-        
+
         $cart = session()->get('cart', []);
         $total = $this->cartService->getTotal($cart);
 
-        return view('dashboard', compact('products','categories','cart','total'));
+        return view('dashboard', compact('products', 'categories', 'cart', 'total'));
     }
 
     public function search(Request $request)
     {
-        $search = trim($request->search);
+        $search = trim($request->string('search'));
 
         $products = $this->productService->searchProduts($search);
         $categories = $this->categoryService->getAllCategories();
-        
+
         $cart = session()->get('cart', []);
         $total = $this->cartService->getTotal($cart);
 
-        return view('dashboard', compact('products','categories','cart','total'));
+        return view('dashboard', compact('products', 'categories', 'cart', 'total'));
     }
 
 }

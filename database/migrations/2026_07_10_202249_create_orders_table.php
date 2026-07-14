@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('reference')->nullable();
             $table->text('note')->nullable();
             $table->decimal('total', 10, 2);
-            $table->string('status')->defalt('pending');
             $table->timestamps();
         });
     }

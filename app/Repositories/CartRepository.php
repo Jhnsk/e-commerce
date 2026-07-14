@@ -1,13 +1,13 @@
 <?php
 
-    namespace App\Repositories;
+namespace App\Repositories;
 
-    use App\Models\Product;
+use App\Models\Product;
 
-    class CartRepository
+class CartRepository
+{
+    public function productById(int $productId): Product
     {
-        public function productById(int $productId)
-        {
-           return  Product::findOrFail($productId);
-        }
+        return Product::findOrFail($productId);
     }
+}

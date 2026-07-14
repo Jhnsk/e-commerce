@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,16 +28,17 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'checkUser'])->name('checkUser');
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')
-->middleware('auth');
 
 Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name('products.category');
-
 Route::get('/search', [DashboardController::class, 'search'])->name('products.search');
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('product.add');
+Route::prefix('cart')->group(function () {
+    Route::post('add', [CartController::class, 'add'])->name('product.add');
+    Route::post('increase/{id}', [CartController::class, 'increase']);
+    Route::post('decrease/{id}', [CartController::class, 'decrease']);
+});
 
-Route::post('/cart/increase/{id}', [CartController::class, 'increase']);
-Route::post('/cart/decrease/{id}', [CartController::class, 'decrease']);
-
-Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth.session');
+Route::prefix('/')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
+});

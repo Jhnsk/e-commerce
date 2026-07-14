@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class RegisterController extends Controller
 {
 
-    public function __construct(private UserServices $userServices){}
+    public function __construct(private UserServices $userServices)
+    {
+    }
 
     public function register()
     {
