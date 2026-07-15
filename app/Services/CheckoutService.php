@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Services\CartService;
+use App\Services\WhatsappMessageService;
 
 class CheckoutService
 {
@@ -12,7 +13,8 @@ class CheckoutService
 
         private OrderRepository $orderRepository,
         private CartService $cartService,
-        private OrderItemRepository $orderItemRepository
+        private OrderItemRepository $orderItemRepository,
+        private WhatsappMessageService $whatsappMessageService
 
     ) {
     }
@@ -55,9 +57,12 @@ class CheckoutService
             ]);
         }
 
+        $url = $this->whatsappMessageService->generate($orderCreated, $cart, $total);
+
         session()->forget('cart');
 
-        return $orderCreated;
+        return $url;
 
     }
+
 }

@@ -13,7 +13,7 @@ class CheckoutController extends Controller
 
     public function checkout(CheckoutRequest $request)
     {
-        $result = $this->checkoutService->process($request->only([
+        $url = $this->checkoutService->process($request->only([
             'name',
             'phone',
             'delivery_type',
@@ -24,6 +24,6 @@ class CheckoutController extends Controller
 
         ]));
 
-        return redirect()->back();
+        return redirect()->away($url);
     }
 }
