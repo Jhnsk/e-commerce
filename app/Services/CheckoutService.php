@@ -6,6 +6,7 @@ use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Services\CartService;
 use App\Services\WhatsappMessageService;
+use function PHPUnit\Framework\throwException;
 
 class CheckoutService
 {
@@ -23,6 +24,10 @@ class CheckoutService
     {
 
         $cart = session()->get('cart', []);
+
+        if (empty($cart)) {
+            throw new \Exception('carrinho inválido');
+        }
 
         $total = $this->cartService->getTotal($cart);
 

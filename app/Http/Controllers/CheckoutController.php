@@ -24,6 +24,8 @@ class CheckoutController extends Controller
 
         ]));
 
-        return redirect()->away($url);
+        return response()->json([
+            'url' => $url
+        ]);
     }
 }

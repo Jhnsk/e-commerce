@@ -14,7 +14,7 @@
            </button>
        </div>
    
-       <form action="{{route('checkout')}}" method="POST">
+       <form action="{{route('checkout')}}" method="POST" id="checkoutForm">
    
            @csrf
    

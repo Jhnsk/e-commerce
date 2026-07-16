@@ -436,3 +436,32 @@ quickviewForm.addEventListener(
 
     }
 );
+
+//============================
+//AJAX DO WHATSSAP
+
+const form = document.querySelector('#checkoutForm');
+
+form.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    const response = await fetch('/checkout', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN':
+                document.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content
+        }
+    });
+
+    const data = await response.json();
+
+    window.open(data.url, '_blank');
+
+    location.reload();
+});

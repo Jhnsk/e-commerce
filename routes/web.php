@@ -40,5 +40,5 @@ Route::prefix('cart')->group(function () {
 
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 });
