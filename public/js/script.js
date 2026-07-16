@@ -260,8 +260,8 @@ productCards.forEach(card => {
         quickviewProductId.value =
             card.dataset.id;
 
-        quickviewImage.src =
-            card.dataset.image;
+ //       quickviewImage.src =
+ //           card.dataset.image;
 
         quickviewCategory.textContent =
             card.dataset.category;
@@ -464,4 +464,22 @@ form.addEventListener('submit', async (e) => {
     window.open(data.url, '_blank');
 
     location.reload();
+});
+
+quickviewImage.addEventListener('mousemove', (e) => {
+
+    const rect = quickviewImage.getBoundingClientRect();
+
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    quickviewImage.style.transformOrigin = `${x}% ${y}%`;
+    quickviewImage.style.transform = 'scale(2)';
+
+});
+
+quickviewImage.addEventListener('mouseleave', () => {
+
+    quickviewImage.style.transform = 'scale(1)';
+
 });

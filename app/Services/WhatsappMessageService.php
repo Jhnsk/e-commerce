@@ -4,7 +4,7 @@ namespace App\Services;
 
 class WhatsappMessageService
 {
-    public function generate($orderCreated, array $cart, int $total)
+    public function generate($orderCreated, array $cart, float $total)
     {
 
         $message = "*Pedido* #{$orderCreated->id}\n\n";

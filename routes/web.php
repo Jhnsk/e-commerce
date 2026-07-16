@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -41,4 +42,7 @@ Route::prefix('cart')->group(function () {
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    
 });
+
+Route::get('/adminDashboard', [AdminDashboardController::class, 'index'])->name('adminDashboard');
