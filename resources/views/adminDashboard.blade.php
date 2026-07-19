@@ -120,7 +120,7 @@
                 </span>
 
                 <strong>
-                    125
+                    {{$productsCount}}
                 </strong>
 
             </div>
@@ -134,7 +134,7 @@
                 </span>
 
                 <strong>
-                    42
+                    {{$ordersCount}}
                 </strong>
 
             </div>
@@ -148,7 +148,7 @@
                 </span>
 
                 <strong>
-                    86
+                    {{$clientes}}
                 </strong>
 
             </div>
@@ -162,7 +162,7 @@
                 </span>
 
                 <strong>
-                    R$ 8.450
+                    R$ {{number_format($ordersTotal, 2, ',', '.')}}
                 </strong>
 
             </div>
@@ -202,7 +202,9 @@
 
             <div class="table-container">
 
-
+                
+                    
+                
                 <table>
 
 
@@ -245,40 +247,40 @@
 
 
 
-
+                @foreach ($products as $product)
                     <tbody>
 
 
                         <tr>
 
-
+                        
                             <td>
 
                                 <img 
                                 class="product-image"
-                                src="assets/camisa.jpg"
+                                src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholderImg.jpeg') }}"
                                 >
 
                             </td>
 
 
                             <td>
-                                Vestido Floral
+                                {{$product->name}}
                             </td>
 
 
                             <td>
-                                Vestidos
+                                {{ $product->category->name }}
                             </td>
 
 
                             <td>
-                                R$ 149,90
+                                R$ {{number_format($product->price, 2, '.' , '.' )}}
                             </td>
 
 
                             <td>
-                                15
+                                {{$product->stock}}
                             </td>
 
 
@@ -306,23 +308,18 @@
 
 
                     </tbody>
-
+                @endforeach
 
 
                 </table>
-
+        
 
 
             </div>
 
-
+            @include("componentes.pagination-modal")
 
         </section>
-
-
-
-
-
 
 
 
@@ -341,9 +338,9 @@
             </div>
 
 
-
-            <div class="orders">
-
+           
+             <div class="orders">
+                @foreach ($lastOrders as $order)
 
                 <div class="order">
 
@@ -351,11 +348,11 @@
                     <div>
 
                         <strong>
-                            Pedido #1024
+                            Pedido #{{$order->id}}
                         </strong>
 
                         <p>
-                            Maria Silva
+                            {{$order->name}}
                         </p>
 
                     </div>
@@ -368,33 +365,8 @@
 
 
                 </div>
-
-
-
-
-                <div class="order">
-
-
-                    <div>
-
-                        <strong>
-                            Pedido #1025
-                        </strong>
-
-                        <p>
-                            João Santos
-                        </p>
-
-                    </div>
-
-
-
-                    <span class="status preparing">
-                        Preparando
-                    </span>
-
-
-                </div>
+            @endforeach
+            
 
 
 
@@ -417,166 +389,156 @@
 
 
 
+<div class="modalNewProduct">
+
+    <form id="productForm" method="POST" enctype="multipart/form-data">
+
+        <h2>Novo Produto</h2>
+
+        <div class="form-group">
+
+            <label for="image">
+                Foto do Produto
+            </label>
+
+            <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+            >
+
+        </div>
 
 
+        <div class="form-group">
+
+            <label for="name">
+                Nome do Produto
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Ex: Vestido Floral"
+                required
+            >
+
+        </div>
 
 
+        <div class="form-group">
+
+            <label for="category">
+                Categoria
+            </label>
+
+            <select
+                id="category"
+                name="category_id"
+                required
+            >
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option value="1">
+                    Vestidos
+                </option>
+
+                <option value="2">
+                    Blusas
+                </option>
+
+                <option value="3">
+                    Calças
+                </option>
+
+                <option value="4">
+                    Saias
+                </option>
+
+            </select>
+
+        </div>
 
 
-<!-- MODAL ADICIONAR PRODUTO -->
+        <div class="form-group">
+
+            <label for="price">
+                Preço
+            </label>
+
+            <input
+                type="number"
+                id="price"
+                name="price"
+                step="0.01"
+                placeholder="0.00"
+                required
+            >
+
+        </div>
 
 
-<div class="modal" id="addProductModal">
+        <div class="form-group">
+
+            <label for="stock">
+                Estoque
+            </label>
+
+            <input
+                type="number"
+                id="stock"
+                name="stock"
+                placeholder="0"
+                required
+            >
+
+        </div>
 
 
-<div class="modal-content">
+        <div class="form-group">
+
+            <label for="description">
+                Descrição
+            </label>
+
+            <textarea
+                id="description"
+                name="description"
+                rows="5"
+                placeholder="Descrição do produto..."
+            ></textarea>
+
+        </div>
 
 
-<button class="close-modal">
-    ×
-</button>
+        <div class="form-buttons">
 
+            <button
+                type="button"
+                class="btn-cancel"
+            >
+                Cancelar
+            </button>
 
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Salvar Produto
+            </button>
 
-<h2>
-Adicionar Produto
-</h2>
+        </div>
 
-
-
-<form>
-
-
-<label>
-Nome do produto
-</label>
-
-<input type="text">
-
-
-
-<label>
-Categoria
-</label>
-
-
-<select>
-
-<option>
-Vestidos
-</option>
-
-<option>
-Blusas
-</option>
-
-<option>
-Calças
-</option>
-
-</select>
-
-
-
-
-<label>
-Preço
-</label>
-
-<input type="number">
-
-
-
-<label>
-Estoque
-</label>
-
-<input type="number">
-
-
-
-<label>
-Imagem
-</label>
-
-<input type="file">
-
-
-
-<button class="btn-primary">
-Salvar Produto
-</button>
-
-
-
-</form>
-
+    </form>
 
 </div>
 
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- MODAL EDITAR -->
-
-
-<div class="modal" id="editProductModal">
-
-
-<div class="modal-content">
-
-
-<button class="close-modal">
-×
-</button>
-
-
-
-<h2>
-Editar Produto
-</h2>
-
-
-
-<form>
-
-
-<input type="text" value="Vestido Floral">
-
-
-<input type="number" value="149.90">
-
-
-<button class="btn-primary">
-Atualizar
-</button>
-
-
-</form>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<script src="js/admin.js"></script>
-
+<script src="{{ asset('js/admin.js') }}"></script>
 </body>
 
 </html>

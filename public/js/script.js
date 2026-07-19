@@ -483,3 +483,6 @@ quickviewImage.addEventListener('mouseleave', () => {
     quickviewImage.style.transform = 'scale(1)';
 
 });
+
+
+

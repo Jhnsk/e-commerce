@@ -11,6 +11,11 @@
             return User::create($data);
         }
 
+        public function getClientesCount()
+        {
+            return User::count();
+        }
+
         public function emailExists(string $email): bool 
         {
             return User::where('email', $email)

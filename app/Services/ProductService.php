@@ -13,6 +13,11 @@
             return $this->productRepository->getAll();
         }
 
+        public function getProductsCount()
+        {
+            return $this->productRepository->getProductsCount();
+        }
+
         public function getProductsByCategories(int $categoryId)
         {
             return $this->productRepository->getProductsByCategories($categoryId);

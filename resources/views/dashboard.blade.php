@@ -71,7 +71,7 @@
                 
                     <div class="product-image">
                 
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ5yVdeiYLypHVyOiBMXSp3qV2kBQObOc3JgA-q3qgPw&s=10" alt="">
+                        <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholderImg.jpeg') }}" alt="">
                 
                     </div>
                 
@@ -98,33 +98,7 @@
                 @endforeach
 
             </div>
-            <div class="custom-pagination">
-
-                @if ($products->onFirstPage())
-                    <span class="disabled">‹</span>
-                @else
-                    <a href="{{ $products->previousPageUrl() }}">‹</a>
-                @endif
-            
-            
-                @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-            
-                    @if ($page == $products->currentPage())
-                        <span class="active">{{ $page }}</span>
-                    @else
-                        <a href="{{ $url }}">{{ $page }}</a>
-                    @endif
-            
-                @endforeach
-            
-            
-                @if ($products->hasMorePages())
-                    <a href="{{ $products->nextPageUrl() }}">›</a>
-                @else
-                    <span class="disabled">›</span>
-                @endif
-            
-            </div>
+            @include("componentes.pagination-modal")
 
         </main>
 

@@ -11,6 +11,11 @@ class ProductRepository
         return Product::paginate(8);
     }
 
+    public function getProductsCount()
+    {
+        return Product::count();
+    }
+
     public function getProductsByCategories(int $categoryId)
     {
         return Product::where('category_id', $categoryId)->paginate(8);
