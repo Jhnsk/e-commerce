@@ -42,7 +42,12 @@ Route::prefix('cart')->group(function () {
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
-    
 });
 
-Route::get('/adminDashboard', [AdminDashboardController::class, 'index'])->name('adminDashboard');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/adminDashboard', [AdminDashboardController::class, 'index'])
+        ->name('adminDashboard');
+    Route::post('/adminDashboard/addProduct', [AdminDashboardController::class, 'addProduct'])
+        ->name('admin.addProduct');
+});
+

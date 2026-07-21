@@ -484,5 +484,31 @@ quickviewImage.addEventListener('mouseleave', () => {
 
 });
 
+const cards = document.querySelectorAll('.product-card');
+
+const modalImage = document.querySelector('#quickviewImage');
+
+
+cards.forEach(card => {
+
+    card.addEventListener('click', () => {
+
+        const image = card.dataset.image;
+
+
+        if(image){
+
+            modalImage.src = `/storage/${image}`;
+
+        } else {
+
+            modalImage.src = '/images/placeholderImg.jpeg';
+
+        }
+
+    });
+
+});
+
 
 

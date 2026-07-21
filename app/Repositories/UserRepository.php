@@ -13,7 +13,7 @@
 
         public function getClientesCount()
         {
-            return User::count();
+            return User::where('role', 'user')->count();
         }
 
         public function emailExists(string $email): bool 

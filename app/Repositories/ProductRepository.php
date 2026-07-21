@@ -25,4 +25,9 @@ class ProductRepository
     {
         return Product::where('name', 'like', "%{$search}%")->paginate(8);
     }
+
+    public function createProduct($data)
+    {
+        return Product::create($data);
+    }
 }

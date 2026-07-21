@@ -35,6 +35,10 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
+            if ($user->role === 'admin') {
+                return redirect()->route('adminDashboard');
+            }
+
             return redirect()->route('dashboard');
 
         } catch (\Exception $e) {

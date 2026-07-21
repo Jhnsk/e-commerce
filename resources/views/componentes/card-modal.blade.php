@@ -16,12 +16,12 @@
         <div class="quickview-gallery">
 
             <div class="quickview-main-image">
-
-                <img
+                
+                    <img
                     id="quickviewImage"
-                    src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/placeholderImg.jpeg') }}"
+                    src="{{ asset('images/placeholderImg.jpeg') }}"
                     alt="">
-
+               
             </div>
 
         </div>

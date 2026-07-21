@@ -22,16 +22,16 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+       $result = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed'
         ]);
 
         $user = $this->userServices->createUser(
-            $request->name,
-            $request->email,
-            $request->password
+            $result['name'],
+            $result['email'],
+            $result['password']
         );
 
         Auth::login($user);

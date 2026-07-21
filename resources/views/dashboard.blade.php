@@ -66,6 +66,7 @@
                     data-price="{{ $product->price }}"
                     data-description="{{ $product->description }}"
                     data-category="{{ $product->category->name }}"
+                    data-image="{{ $product->image }}"
 
                 >
                 
