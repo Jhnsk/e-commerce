@@ -64,7 +64,20 @@
 
         </nav>
 
+        <div class="sidebar-footer">
 
+            <form action="{{ route('logout') }}" method="POST">
+    
+                @csrf
+    
+                <button class="logout-sidebar-btn">
+                    Sair
+                </button>
+    
+            </form>
+    
+        </div>
+    
     </aside>
 
 

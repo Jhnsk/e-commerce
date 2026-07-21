@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -28,6 +29,8 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'checkUser'])->name('checkUser');
+
+Route::post('/logout', [LogoutController::class,'logout'])->name('logout');
 
 
 Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name('products.category');

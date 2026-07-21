@@ -27,6 +27,8 @@
         <div class="user-area">
             <button>Minha Conta</button>
         </div>
+
+        
         <div class="menusMobileArea">
             <div class="menu-toggle">☰</div>
             <button class="cart-btn-mobile">🛒</button>
@@ -46,6 +48,20 @@
                     </a>
                 @endforeach
             </ul>
+
+            <div class="sidebar-footer">
+
+                <form action="{{ route('logout') }}" method="POST">
+        
+                    @csrf
+        
+                    <button class="logout-sidebar-btn">
+                        Sair
+                    </button>
+        
+                </form>
+        
+            </div>
         </aside>
 
         <main class="products-area">

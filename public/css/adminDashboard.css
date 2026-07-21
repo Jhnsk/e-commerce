@@ -80,6 +80,54 @@ body {
 
     box-shadow: 5px 0 20px rgba(124, 58, 237, .25);
 
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.sidebar-footer {
+
+    margin-top: auto;
+
+    padding-top: 20px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+.logout-sidebar-btn {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: var(--radius-sm);
+
+    background: rgba(124, 58, 237, .08);
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.logout-sidebar-btn:hover {
+
+    background: var(--primary);
+
+    color: white;
+
+    transform: translateY(-2px);
+
 }
 
 
@@ -1033,7 +1081,7 @@ input[type="file"] {
 ========================== */
 
 
-@media(max-width: 600px){
+@media(max-width: 600px) {
 
     .modalNewProduct form {
 
