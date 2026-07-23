@@ -42,4 +42,23 @@ class ProductService
         return $this->productRepository->createProduct($data);
     }
 
+    public function update(Product $product, array $data): void
+    {
+        if (request()->hasFile('image')) {
+
+            $image = request()
+                ->file('image')
+                ->store('products', 'public');
+    
+            $data['image'] = $image;
+        }
+    
+        $this->productRepository->update($product, $data);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->productRepository->destroyProduct($id);
+    }
+
 }

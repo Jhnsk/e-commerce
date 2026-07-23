@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -30,7 +31,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'checkUser'])->name('checkUser');
 
-Route::post('/logout', [LogoutController::class,'logout'])->name('logout');
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 Route::get('/category/{id}', [DashboardController::class, 'byCategories'])->name('products.category');
@@ -52,5 +53,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ->name('adminDashboard');
     Route::post('/adminDashboard/addProduct', [AdminDashboardController::class, 'addProduct'])
         ->name('admin.addProduct');
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])
+        ->name('product.destroy');
+    Route::put('/product/{product}', [ProductController::class,'update'])->name('product.update');
 });
+
+
 

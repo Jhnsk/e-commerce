@@ -300,14 +300,26 @@
                             <td class="actions">
 
 
-                                <button class="edit">
+                                <button
+                                    class="edit"
+                                    data-id="{{ $product->id }}"
+                                    data-name="{{ $product->name }}"
+                                    data-price="{{ $product->price }}"
+                                    data-description="{{ $product->description }}"
+                                    data-category="{{ $product->category_id }}"
+                                >
                                     Editar
                                 </button>
 
+                                <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button class="delete">
-                                    Excluir
-                                </button>
+                                    <button type="submit" class="delete">
+                                        Excluir
+                                     </button>
+                                </form>
+                                
 
 
                             </td>
@@ -401,7 +413,7 @@
 </div>
 
 @include('componentes.newProductModal')
-
+@include('componentes.modalEditProduct')
 
 <script src="{{ asset('js/admin.js') }}"></script>
 </body>

@@ -30,4 +30,14 @@ class ProductRepository
     {
         return Product::create($data);
     }
+
+    public function update(Product $product, array $data): bool
+    {
+        return $product->update($data);
+    }
+
+    public function destroyProduct(int $id)
+    {
+        return Product::destroy($id);
+    }
 }
